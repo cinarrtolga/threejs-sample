@@ -1,0 +1,8 @@
+html, body { margin: 0 !important; padding: 0; overflow-x: hidden; overflow-y: hidden; background-color: black; }
+#canvas { display: none; background-image: url("../images/background.jpg");	}
+#circle { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 150px; height: 150px; }
+.loader { width: calc(100% - 0px); height: calc(100% - 0px); border: 8px solid #f6a828; border-top: 8px solid #fff; border-radius: 50%; animation: rotate 5s linear infinite; }
+.ui-dialog { background-color: eee; text-align: center; }
+#dialog .dialog-header { font-size: 1.5em; font-weight: bold; margin-bottom: 0.5em; }
+
+@keyframes rotate { 100% {transform: rotate(360deg);} } 
