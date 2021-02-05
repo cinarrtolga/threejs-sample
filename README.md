@@ -1,7 +1,16 @@
-# threejs-sample
+# Three JS Sample Project
 Three js sample project
 
-### Screenshot
+For run the project on your computer you need to have node.js or any http-server. If you would like to run this via node.js you have to run the following command on the project folder.
 
-<img src="https://3dmodel.cinarr.com/mobile.gif?raw=true" width="600px">
+```bash
+http-server . -p 8000
+```
 
+### Screenshots
+
+<p align="center">
+<img src="https://3dmodel.cinarr.com/mobile.gif?raw=true" width="100%">
+<br />
+<img src="https://3dmodel.cinarr.com/mobile.gif?raw=true" width="100%">
+</p>
