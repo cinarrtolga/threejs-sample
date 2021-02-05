@@ -10,7 +10,7 @@ http-server . -p 8000
 ### Screenshots
 
 <p align="center">
-<img src="https://3dmodel.cinarr.com/mobile.gif?raw=true" width="100%">
+<img src="https://3dmodel.cinarr.com/web.gif?raw=true" width="100%">
 <br />
 <img src="https://3dmodel.cinarr.com/mobile.gif?raw=true" width="100%">
 </p>
