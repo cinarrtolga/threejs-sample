@@ -13,10 +13,7 @@ loadingManager.onLoad = function () {
 scene = new THREE.Scene();
 
 //Background image. It is possible to set via CSS. 
-backgroundLoader = new THREE.TextureLoader(loadingManager);
-backgroundLoader.load('assets/images/background.png', function (texture) {
-    scene.background = texture;
-});
+getSceneBackground();
 
 //This camera is like a eye. Shows 3D models.
 //After defining the camera, I defined the location for it.
@@ -37,6 +34,7 @@ canvasArea.appendChild(renderer.domElement);
 window.addEventListener('resize', function () {
     renderer.setSize(window.innerWidth, window.innerHeight);
     camera.aspect = window.innerWidth / window.innerHeight;
+    getSceneBackground();
 });
 
 raycaster = new THREE.Raycaster();
@@ -61,6 +59,22 @@ function animate() {
 }
 animate();
 
+//This method chose the background image via screen width property.
+//Same image not usable for mobile devices.
+function getSceneBackground(){
+    backgroundLoader = new THREE.TextureLoader(loadingManager);
+
+    if(window.innerWidth < 450) {
+        backgroundLoader.load('assets/images/background-mobile.png', function (texture) {
+            scene.background = texture;
+        });
+    } else {
+        backgroundLoader.load('assets/images/background.png', function (texture) {
+            scene.background = texture;
+        });
+    }
+}
+
 //In this section, I loaded my car model. I downloaded this model from Sketchfab. 
 //For loading this model, I used GLTF Loader. GLTF Loader JS included on my html document.
 function load3DModel() {
@@ -73,9 +87,9 @@ function load3DModel() {
         scene.add(car);
 
         //I defined 3 sample points on my 3D model via the following external method.
-        createMarker(model, new THREE.Vector3(1.8, 2.5, 1.5), "Tire");
+        createMarker(model, new THREE.Vector3(1.8, 2.5, 1.5), "Tires");
         createMarker(model, new THREE.Vector3(0, -3.5, 1.5), "Engine");
-        createMarker(model, new THREE.Vector3(0, -0.7, 0.3), "Battery");
+        createMarker(model, new THREE.Vector3(0, -0.7, 0.3), "Batteries");
     });
 }
 
@@ -128,13 +142,13 @@ function objectClickEvent(event) {
 
     intersects.forEach(function (element) {
         switch (element.object.name) {
-            case "Tire":
+            case "Tires":
                 getModal(dialogLocation.custom, element.object.name, mouseXLoc, mouseYLoc);
                 break;
             case "Engine":
                 getModal(dialogLocation.custom, element.object.name, mouseXLoc, mouseYLoc);
                 break;
-            case "Battery":
+            case "Batteries":
                 getModal(dialogLocation.custom, element.object.name, mouseXLoc, mouseYLoc);
                 break;
             default:
@@ -156,13 +170,13 @@ function onTouchEvent(event) {
 
     intersects.forEach(function (element) {
         switch (element.object.name) {
-            case "Tire":
+            case "Tires":
                 getModal(dialogLocation.centered, element.object.name, 0, 0);
                 break;
             case "Engine":
                 getModal(dialogLocation.centered, element.object.name, 0, 0);
                 break;
-            case "Battery":
+            case "Batteries":
                 getModal(dialogLocation.centered, element.object.name, 0, 0);
                 break;
             default:
