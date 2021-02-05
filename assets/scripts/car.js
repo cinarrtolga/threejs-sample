@@ -1,6 +1,6 @@
-var scene, camera, renderer, canvasArea, car, raycaster, 
-mouse, modelLoader, controls, loadingManager, mouseXLoc, 
-mouseYLoc;
+var scene, camera, renderer, canvasArea, car, raycaster,
+    mouse, modelLoader, controls, loadingManager, mouseXLoc,
+    mouseYLoc, backgroundLoader;
 
 //This block for model loading control. 
 //After the load method completely, It calls canvas on screen. 
@@ -12,10 +12,16 @@ loadingManager.onLoad = function () {
 //This is like my artboard. I putted all of my objects there and render all of them together.
 scene = new THREE.Scene();
 
+//Background image. It is possible to set via CSS. 
+backgroundLoader= new THREE.TextureLoader(loadingManager);
+backgroundLoader.load('assets/images/background.png', function (texture) {
+    scene.background = texture;
+});
+
 //This camera is like a eye. Shows 3D models.
 //After defining the camera, I defined the location for it.
-camera = new THREE.PerspectiveCamera(10, window.innerWidth / window.innerHeight);
-camera.position.set(40, 20, -50);
+camera = new THREE.PerspectiveCamera(10, (window.innerWidth / window.innerHeight));
+camera.position.set(30, 15, -60);
 
 renderer = new THREE.WebGLRenderer({ alpha: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
@@ -56,17 +62,19 @@ animate();
 
 //In this section, I loaded my car model. I downloaded this model from Sketchfab. 
 //For loading this model, I used GLTF Loader. GLTF Loader JS included on my html document.
-function load3DModel(){
+function load3DModel() {
     modelLoader = new THREE.GLTFLoader(loadingManager);
     modelLoader.load('assets/models/substance_futuristic_sports_car/scene.gltf', function (gltf) {
         car = gltf.scene;
+        //Position property for put the car to floor.
+        car.position.set(0,-2.8, 0);
         const model = car.children[0]
         scene.add(car);
-    
+
         //I defined 3 sample points on my 3D model via the following external method.
-        createMarker(model, new THREE.Vector3(1.8, 2.5, 1.5), "tire");
-        createMarker(model, new THREE.Vector3(0, -3.5, 1.5), "engine");
-        createMarker(model, new THREE.Vector3(0, -0.7, 0.3), "power");
+        createMarker(model, new THREE.Vector3(1.8, 2.5, 1.5), "Tire");
+        createMarker(model, new THREE.Vector3(0, -3.5, 1.5), "Engine");
+        createMarker(model, new THREE.Vector3(0, -0.7, 0.3), "Battery");
     });
 }
 
@@ -119,17 +127,17 @@ function objectClickEvent(event) {
 
     intersects.forEach(function (element) {
         switch (element.object.name) {
-            case "tire":
+            case "Tire":
                 getModal(element.object.name, mouseXLoc, mouseYLoc);
                 break;
-            case "engine":
+            case "Engine":
                 getModal(element.object.name, mouseXLoc, mouseYLoc);
                 break;
-            case "power":
+            case "Power":
                 getModal(element.object.name, mouseXLoc, mouseYLoc);
                 break;
             default:
-            console.log("You clicked to empty place.");
+                console.log("You clicked to empty place.");
         }
     });
 }
