@@ -4,10 +4,16 @@ var dialogLocation = {
 }
 
 $(document).ready(function () {
-    $(".description-show-button").click(function () {
+    $(".description-show-button").on("click", function () {
         toggleDescriptionContent(false);
     });
-    $(".description-close-button").click(function () {
+    $(".description-show-button").on("touchstart", function () {
+        toggleDescriptionContent(false);
+    });
+    $(".description-close-button").on("click", function () {
+        toggleDescriptionContent(true);
+    });
+    $(".description-close-button").on("touchstart", function () {
         toggleDescriptionContent(true);
     });
 });
