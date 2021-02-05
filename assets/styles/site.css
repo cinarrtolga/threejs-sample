@@ -1,8 +1,24 @@
 html, body { margin: 0 !important; padding: 0; overflow-x: hidden; overflow-y: hidden; background-color: black; }
-#canvas { display: none; }
+#canvas { display: none; z-index: 1; }
 #circle { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 150px; height: 150px; }
 .loader { width: calc(100% - 0px); height: calc(100% - 0px); border: 8px solid #f6a828; border-top: 8px solid #fff; border-radius: 50%; animation: rotate 5s linear infinite; }
 .ui-dialog { background-color: eee; text-align: center; }
-#dialog .dialog-header { font-size: 1.5em; font-weight: bold; margin-bottom: 0.5em; }
+#dialog .dialog-header { font-size: 1.5em; font-weight: bold; margin-bottom: 0.5em; } 
+.load { transition: 1s; right: 1em; }
+.unload { transition: 1s; right: -100em; }
+.description-show-button { border-radius: 1em; background-color: white; position: absolute; display: block; top: 1.5em; padding: 1em; text-align: center; transition: 1s; }
+.content-description-area { width: 15%; min-height: 50px; float: right; border-radius: 1em; background-color: white; position: absolute;  display: block; top: 1.5em; padding: 1em; text-align: center; transition: 1s; }
+.description-close-button { margin-right: .5em; font-size: 19px; font-weight: bold; position: absolute; right: 1em; }
+.content-description-area .description-title h3 { margin-top: 0; }
+.content-description-area button,
+.content-description-area button:focus,
+.description-show-button button,
+.description-show-button button:focus { background-color: transparent; border: none; border: none; outline: none; }
+
+@media (max-width: 763px) { 
+    .content-description-area { width: 92%; }
+    .description-show-button { padding: 0.3em; border-radius: 0.3em; }
+    .description-show-button img { width: 30px; }
+}
 
 @keyframes rotate { 100% {transform: rotate(360deg);} } 
