@@ -1,8 +1,13 @@
+var dialogLocation = {
+    custom: 1,
+    centered: 2,
+}
+
 $(document).ready(function () {
     $(".description-show-button").click(function () {
         toggleDescriptionContent(false);
     });
-    $(".description-close-button").click(function() {
+    $(".description-close-button").click(function () {
         toggleDescriptionContent(true);
     });
 });
@@ -16,19 +21,26 @@ function getCanvas() {
 
 //The following method for showing modal on the screen. 
 //Mouse location for dynamic modal position. 
-function getModal(selectedPart, mouseX, mouseY) {
+function getModal(location, selectedPart, mouseX, mouseY) {
     $(".ui-dialog-title").html(selectedPart);
     $("#dialog .dialog-description").html("Lorem Ipsum");
 
-    $("#dialog").dialog({
-        modal: true,
-        show: 'fade',
-        open: function () {
-            $(".ui-dialog").css("top", mouseY);
-            $(".ui-dialog").css("left", mouseX);
-            $(".ui-dialog-content").css("min-height", "auto");
-        }
-    });
+    if (location == dialogLocation.custom) {
+        $("#dialog").dialog({
+            modal: true,
+            show: 'fade',
+            open: function () {
+                $(".ui-dialog").css("top", mouseY);
+                $(".ui-dialog").css("left", mouseX);
+                $(".ui-dialog-content").css("min-height", "auto");
+            }
+        });
+    } else if (location == dialogLocation.centered) {
+        $("#dialog").dialog({
+            modal: true,
+            show: 'fade'
+        });
+    }
 }
 
 //This function for show / hide description content. Function decides to act according to status.

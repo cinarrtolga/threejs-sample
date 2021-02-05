@@ -13,7 +13,7 @@ loadingManager.onLoad = function () {
 scene = new THREE.Scene();
 
 //Background image. It is possible to set via CSS. 
-backgroundLoader= new THREE.TextureLoader(loadingManager);
+backgroundLoader = new THREE.TextureLoader(loadingManager);
 backgroundLoader.load('assets/images/background.png', function (texture) {
     scene.background = texture;
 });
@@ -27,8 +27,9 @@ renderer = new THREE.WebGLRenderer({ alpha: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.outputEncoding = THREE.sRGBEncoding;
 
-//With the following code block, I defined click event and choose the section from html for my canvas. 
+//With the following code block, I defined click/touch events and choose the section from html for my canvas. 
 renderer.domElement.addEventListener("click", objectClickEvent, true);
+renderer.domElement.addEventListener("touchstart", onTouchEvent, false);
 canvasArea = document.getElementById("canvas");
 canvasArea.appendChild(renderer.domElement);
 
@@ -67,7 +68,7 @@ function load3DModel() {
     modelLoader.load('assets/models/substance_futuristic_sports_car/scene.gltf', function (gltf) {
         car = gltf.scene;
         //Position property for put the car to floor.
-        car.position.set(0,-2.8, 0);
+        car.position.set(0, -2.8, 0);
         const model = car.children[0]
         scene.add(car);
 
@@ -128,16 +129,44 @@ function objectClickEvent(event) {
     intersects.forEach(function (element) {
         switch (element.object.name) {
             case "Tire":
-                getModal(element.object.name, mouseXLoc, mouseYLoc);
+                getModal(dialogLocation.custom, element.object.name, mouseXLoc, mouseYLoc);
                 break;
             case "Engine":
-                getModal(element.object.name, mouseXLoc, mouseYLoc);
+                getModal(dialogLocation.custom, element.object.name, mouseXLoc, mouseYLoc);
                 break;
-            case "Power":
-                getModal(element.object.name, mouseXLoc, mouseYLoc);
+            case "Battery":
+                getModal(dialogLocation.custom, element.object.name, mouseXLoc, mouseYLoc);
                 break;
             default:
                 console.log("You clicked to empty place.");
+        }
+    });
+}
+
+//This method for mobile touches. On mobile, we do not have click event because of that we defined a second function.
+function onTouchEvent(event) {
+    event = event.changedTouches[0];
+    var rect = renderer.domElement.getBoundingClientRect();
+    mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+    mouse.y = - ((event.clientY - rect.top) / rect.height) * 2 + 1;
+
+    raycaster.setFromCamera(mouse, camera);
+
+    var intersects = raycaster.intersectObjects(car.children, true);
+
+    intersects.forEach(function (element) {
+        switch (element.object.name) {
+            case "Tire":
+                getModal(dialogLocation.centered, element.object.name, 0, 0);
+                break;
+            case "Engine":
+                getModal(dialogLocation.centered, element.object.name, 0, 0);
+                break;
+            case "Battery":
+                getModal(dialogLocation.centered, element.object.name, 0, 0);
+                break;
+            default:
+                console.log("You touched to empty place.");
         }
     });
 }

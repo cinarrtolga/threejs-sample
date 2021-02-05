@@ -14,6 +14,8 @@ html, body { margin: 0 !important; padding: 0; overflow-x: hidden; overflow-y: h
 .content-description-area button:focus,
 .description-show-button button,
 .description-show-button button:focus { background-color: transparent; border: none; border: none; outline: none; }
+.ui-dialog-content { min-height: auto !important; }
+.ui-widget-overlay { background: gray; }
 
 @media (max-width: 763px) { 
     .content-description-area { width: 92%; }
