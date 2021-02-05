@@ -1,4 +1,4 @@
 # threejs-sample
 Three js sample project
 
-![](https://3dmodel.cinarr.com/web.gif)
+<img src="https://3dmodel.cinarr.com/web.gif?raw=true" width="200px">
